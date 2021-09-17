@@ -2,16 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './style.module.css';
 
-const ProfileCard = ({ firstName, lastName }) => {
+const ProfileCard = ({ firstName, lastName, myRewards }) => {
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.profileIcon}>
-        {firstName?.substring(0, 1)?.toUpperCase()}
-        {lastName?.substring(0, 1)?.toUpperCase()}
+    <div className={styles.container}>
+      <div className={styles.wrapper}>
+        <div className={styles.profileIcon}>
+          {firstName?.substring(0, 1)?.toUpperCase()}
+          {lastName?.substring(0, 1)?.toUpperCase()}
+        </div>
+        <p>
+          {firstName} {lastName}
+        </p>
       </div>
-      <p>
-        {firstName} {lastName}
-      </p>
+      {myRewards && (
+        <div className={styles.myRewards}>
+          <p>My Rewards</p>
+          <h3>${myRewards}</h3>
+        </div>
+      )}
     </div>
   );
 };
@@ -19,6 +27,11 @@ const ProfileCard = ({ firstName, lastName }) => {
 ProfileCard.propTypes = {
   firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired,
+  myRewards: PropTypes.string,
+};
+
+ProfileCard.defaultProps = {
+  myRewards: '',
 };
 
 export default ProfileCard;

@@ -10,18 +10,20 @@ const CreateRewardForm = ({ onCreateReward }) => {
 
   return (
     <div className={styles.wrapper}>
-      <Input
-        value={rewardPrice}
-        onChange={(e) => setRewardPrice(e?.target?.value)}
-        placeholder="Reward $"
-      />
+      <div className={styles.input}>
+        <Input
+          value={rewardPrice}
+          onChange={(e) => setRewardPrice(e?.target?.value)}
+          placeholder="Reward $"
+        />
+      </div>
       <Input
         value={reason}
         onChange={(e) => setReason(e?.target?.value)}
         placeholder="Reason"
       />
       <Button
-        text="Create"
+        text="Reward"
         onClick={() => onCreateReward({ rewardPrice, reason })}
         invalid={!rewardPrice || !reason}
         className={styles.button}
