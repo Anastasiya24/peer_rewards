@@ -2,24 +2,8 @@ import React from 'react';
 import history from 'store/history';
 import AccountLayout from 'layouts/AccountLayout';
 import styles from './style.module.css';
-
-const employeeMock = [
-  {
-    _id: '1',
-    firstName: 'Kira',
-    lastName: 'Naire',
-  },
-  {
-    _id: '2',
-    firstName: 'Fysdsd',
-    lastName: 'Bgfgd',
-  },
-  {
-    _id: '3',
-    firstName: 'Fdasfs',
-    lastName: 'Vfgfg',
-  },
-];
+import { mockEmployeesList } from 'mock/employees';
+import { mockMyAccount } from 'mock/myAccount';
 
 const Employee = ({ _id, firstName, lastName }) => {
   return (
@@ -33,11 +17,10 @@ const Employee = ({ _id, firstName, lastName }) => {
 
 const HomePage = () => {
   return (
-    // TODO
-    <AccountLayout name="Anana" lastName="Sasha">
+    <AccountLayout name={mockMyAccount.firstName} lastName={mockMyAccount.lastName}>
       <div>
         <h1 className={styles.employees}>Employees</h1>
-        {employeeMock.map((el) => (
+        {mockEmployeesList.map((el) => (
           <Employee key={el._id} {...el} />
         ))}
       </div>

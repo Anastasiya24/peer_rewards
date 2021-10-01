@@ -7,63 +7,34 @@ import ProfileCard from 'components/shared/ProfileCard';
 import RewardCard from 'components/shared/RewardCard';
 import { plusSvg } from 'assets/icons';
 import styles from './style.module.css';
-
-const mockRewardingList = [
-  {
-    _id: 1,
-    user: {
-      _id: '1',
-      firstName: 'Nera',
-      lastName: 'Liy',
-    },
-    date: '12.09.2021 11:40',
-    text: `Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Nisi qui laboriosam accusantium cupiditate at recusandae facere
-     aspernatur harum eos, numquam iste, quos quaerat, debitis ab. 
-     Deleniti nihil blanditiis sequi itaque?`,
-  },
-  {
-    _id: 2,
-    user: {
-      _id: '2',
-      firstName: 'Kira',
-      lastName: 'Naire',
-    },
-    date: '12.09.2021 11:57',
-    text: `Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Nisi qui laboriosam accusantium cupiditate at recusandae facere
-     aspernatur harum eos, numquam iste, quos quaerat, debitis ab. 
-     Deleniti nihil blanditiis sequi itaque?`,
-  },
-];
-
-const mockUser = {
-  _id: '3',
-  firstName: 'Fdasfs',
-  lastName: 'Vfgfg',
-};
+import { mockRewardingList } from 'mock/rewarding';
+import { mockMyAccount } from 'mock/myAccount';
+import { mockEmployeesList } from 'mock/employees';
 
 const EmployeePage = () => {
+  const [employeeInfo, setEmployeeInfo] = useState({});
+  const [rewardingList, setRewardingList] = useState(mockRewardingList);
   const [isOpenRewardsModal, setRewardsModal] = useState(false);
-
-  // TODO
-  const name = 'Anana';
-  const lastName = 'Sasha';
 
   useEffect(() => {
     const userId = history.location?.search?.replace('?id=', '');
-    // TODO GET USER INFO
-    console.log(userId);
+    const employee = mockEmployeesList.find(({ _id }) => _id === userId);
+    setEmployeeInfo(employee);
+    const newRewardingList = mockRewardingList.filter(({ user }) => user._id !== userId);
+    setRewardingList(newRewardingList);
   }, []);
 
   return (
-    <AccountLayout name={name} lastName={lastName}>
+    <AccountLayout name={mockMyAccount.firstName} lastName={mockMyAccount.lastName}>
       <>
         <div>
-          <ProfileCard firstName={mockUser.firstName} lastName={mockUser.lastName} />
+          <ProfileCard
+            firstName={employeeInfo?.firstName}
+            lastName={employeeInfo?.lastName}
+          />
 
           <div className={styles.list}>
-            {mockRewardingList.map((el) => (
+            {rewardingList.map((el) => (
               <RewardCard key={el._id} {...el} />
             ))}
           </div>

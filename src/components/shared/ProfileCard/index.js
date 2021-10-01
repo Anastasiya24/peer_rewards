@@ -25,13 +25,15 @@ const ProfileCard = ({ firstName, lastName, myRewards }) => {
 };
 
 ProfileCard.propTypes = {
-  firstName: PropTypes.string.isRequired,
-  lastName: PropTypes.string.isRequired,
-  myRewards: PropTypes.string,
+  firstName: PropTypes.string,
+  lastName: PropTypes.string,
+  myRewards: PropTypes.number,
 };
 
 ProfileCard.defaultProps = {
-  myRewards: '',
+  firstName: '',
+  lastName: '',
+  myRewards: null,
 };
 
 export default ProfileCard;

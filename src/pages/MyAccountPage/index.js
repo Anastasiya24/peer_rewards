@@ -1,65 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AccountLayout from 'layouts/AccountLayout';
 import Tabs from 'components/shared/Tabs';
 import ProfileCard from 'components/shared/ProfileCard';
 import RewardCard from 'components/shared/RewardCard';
 import styles from './style.module.css';
+import { mockRewardingList } from 'mock/rewarding';
+import { mockMyAccount } from 'mock/myAccount';
 
-const mockMyRewardingList = [
+// TODO
+const mockCreatedByMyRewardingList = [
   {
     _id: 1,
     user: {
-      _id: '1',
-      firstName: '1Nera',
-      lastName: '1Liy',
-    },
-    date: '12.09.2021 11:40',
-    text: `1Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Nisi qui laboriosam accusantium cupiditate at recusandae facere
-     aspernatur harum eos, numquam iste, quos quaerat, debitis ab. 
-     Deleniti nihil blanditiis sequi itaque?`,
-  },
-  {
-    _id: 2,
-    user: {
       _id: '2',
-      firstName: '1Kira',
-      lastName: '1Naire',
+      firstName: 'Kira',
+      lastName: 'Donovan',
     },
-    date: '12.09.2021 11:57',
-    text: `1Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Nisi qui laboriosam accusantium cupiditate at recusandae facere
-     aspernatur harum eos, numquam iste, quos quaerat, debitis ab. 
-     Deleniti nihil blanditiis sequi itaque?`,
-  },
-];
-
-const mockRewardingList = [
-  {
-    _id: 1,
-    user: {
-      _id: '1',
-      firstName: '2Nera',
-      lastName: '2Liy',
-    },
-    date: '12.09.2021 11:40',
-    text: `2Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Nisi qui laboriosam accusantium cupiditate at recusandae facere
-     aspernatur harum eos, numquam iste, quos quaerat, debitis ab. 
-     Deleniti nihil blanditiis sequi itaque?`,
-  },
-  {
-    _id: 2,
-    user: {
-      _id: '2',
-      firstName: '2Kira',
-      lastName: '2Naire',
-    },
-    date: '12.09.2021 11:57',
-    text: `2Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-    Nisi qui laboriosam accusantium cupiditate at recusandae facere
-     aspernatur harum eos, numquam iste, quos quaerat, debitis ab. 
-     Deleniti nihil blanditiis sequi itaque?`,
+    price: 130,
+    date: '30.09.2021 15:34',
+    text: `1 - Lorem ipsum dolor sit amet consectetur adipisicing elit`,
   },
 ];
 
@@ -75,24 +34,33 @@ const RewardsList = ({ list }) => {
 
 const MyAccountPage = () => {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
-  // TODO
-  const name = 'Anana';
-  const lastName = 'Sasha';
+  const [myRewards, setMyRewards] = useState(0);
 
   const tabsData = [
     { index: 0, name: 'My Rewards' },
     { index: 1, name: 'Created by me Rewards' },
   ];
 
+  useEffect(() => {
+    const rewardingPrice = mockRewardingList.reduce((tmp, r) => {
+      return tmp + r.price;
+    }, 0);
+    setMyRewards(rewardingPrice);
+  }, []);
+
   const components = [
-    <RewardsList list={mockMyRewardingList} />,
     <RewardsList list={mockRewardingList} />,
+    <RewardsList list={mockCreatedByMyRewardingList} />,
   ];
 
   return (
-    <AccountLayout name={name} lastName={lastName}>
+    <AccountLayout name={mockMyAccount.firstName} lastName={mockMyAccount.lastName}>
       <div>
-        <ProfileCard firstName={name} lastName={lastName} myRewards="200" />
+        <ProfileCard
+          firstName={mockMyAccount.firstName}
+          lastName={mockMyAccount.lastName}
+          myRewards={myRewards}
+        />
         <Tabs
           tabsData={tabsData}
           activeTabIndex={activeTabIndex}
