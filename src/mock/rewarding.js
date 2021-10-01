@@ -1,10 +1,15 @@
 export const mockRewardingList = [
   {
     _id: 1,
-    user: {
+    fromUser: {
       _id: '1',
       firstName: 'Beasley',
       lastName: 'Brown',
+    },
+    toUser: {
+      _id: '2',
+      firstName: 'Kira',
+      lastName: 'Donovan',
     },
     date: '01.10.2021 11:40',
     price: 100,
@@ -15,10 +20,15 @@ export const mockRewardingList = [
   },
   {
     _id: 2,
-    user: {
+    fromUser: {
       _id: '2',
       firstName: 'Kira',
       lastName: 'Donovan',
+    },
+    toUser: {
+      _id: '3',
+      firstName: 'Dean',
+      lastName: 'Dougherty',
     },
     price: 150,
     date: '02.10.2021 11:57',
@@ -29,10 +39,15 @@ export const mockRewardingList = [
   },
   {
     _id: 3,
-    user: {
+    fromUser: {
       _id: '3',
       firstName: 'Dean',
       lastName: 'Dougherty',
+    },
+    toUser: {
+      _id: '1',
+      firstName: 'Beasley',
+      lastName: 'Brown',
     },
     price: 120,
     date: '02.10.2021 11:57',

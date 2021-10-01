@@ -2,17 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './style.module.css';
 
-const RewardCard = ({ user, date, price, text }) => {
+const RewardCard = ({ fromUser, date, price, text }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
         <div className={styles.profileIcon}>
-          {user?.firstName?.substring(0, 1)?.toUpperCase()}
-          {user?.lastName?.substring(0, 1)?.toUpperCase()}
+          {fromUser?.firstName?.substring(0, 1)?.toUpperCase()}
+          {fromUser?.lastName?.substring(0, 1)?.toUpperCase()}
         </div>
         <div>
           <h3>
-            {user?.firstName} {user?.lastName}
+            {fromUser?.firstName} {fromUser?.lastName}
           </h3>
           <h3>{price && `$${price}`}</h3>
           <p>{date}</p>
@@ -24,7 +24,7 @@ const RewardCard = ({ user, date, price, text }) => {
 };
 
 RewardCard.propTypes = {
-  user: PropTypes.object.isRequired,
+  fromUser: PropTypes.object.isRequired,
   date: PropTypes.string.isRequired,
   price: PropTypes.number,
   text: PropTypes.string.isRequired,

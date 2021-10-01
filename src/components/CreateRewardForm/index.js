@@ -24,7 +24,7 @@ const CreateRewardForm = ({ onCreateReward }) => {
       />
       <Button
         text="Reward"
-        onClick={() => onCreateReward({ rewardPrice, reason })}
+        onClick={() => onCreateReward(rewardPrice, reason)}
         invalid={!rewardPrice || !reason}
         className={styles.button}
       />
