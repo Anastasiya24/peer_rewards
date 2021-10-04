@@ -2,6 +2,17 @@
   background-color: var(--light-primary-color);
 }
 
+.rewardingNotExist {
+  border-top: 4px solid var(--light-primary-color);
+  display: flex;
+  justify-content: center;
+  padding: 20px 10px;
+}
+
+.rewardingNotExist p {
+  color: var(--primary-color);
+}
+
 .button {
   position: fixed;
   bottom: 0;

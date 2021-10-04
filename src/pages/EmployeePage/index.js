@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import history from 'store/history';
 import { v4 as uuidv4 } from 'uuid';
 import AccountLayout from 'layouts/AccountLayout';
@@ -9,15 +9,12 @@ import ProfileCard from 'components/shared/ProfileCard';
 import RewardCard from 'components/shared/RewardCard';
 import { plusSvg } from 'assets/icons';
 import styles from './style.module.css';
-import { mockRewardingList } from 'mock/rewarding';
 import { mockMyAccount } from 'mock/myAccount';
 import { mockEmployeesList } from 'mock/employees';
 import { addRewarding } from 'store/reducers/rewarding';
-import { useSelector } from 'react-redux';
 
 const EmployeePage = () => {
   const userId = history.location?.search?.replace('?id=', '');
-  console.log('userId: ', userId);
   const rewarding = useSelector(({ rewarding }) => rewarding.list);
 
   const [employeeInfo, setEmployeeInfo] = useState({});
@@ -26,23 +23,14 @@ const EmployeePage = () => {
 
   const dispatch = useDispatch();
 
-  // BUG
   useEffect(() => {
     const employee = mockEmployeesList.find(({ _id }) => _id === userId);
     setEmployeeInfo(employee);
-    const newRewardingList = mockRewardingList.filter(
-      ({ toUser }) => toUser._id === userId
-    );
-    setRewardingList(newRewardingList);
   }, []);
 
   useEffect(() => {
     if (rewarding?.length) {
-      const newList = Array.from(rewardingList);
-      rewarding.map((el) => {
-        if (el.toUser._id === userId) newList.push(el);
-      });
-
+      const newList = rewarding.filter(({ toUser }) => toUser._id === userId);
       setRewardingList(newList);
     }
   }, [rewarding]);
@@ -50,7 +38,7 @@ const EmployeePage = () => {
   const createReward = (price, text) => {
     const data = {
       _id: uuidv4(),
-      from: mockMyAccount,
+      fromUser: mockMyAccount,
       toUser: employeeInfo,
       price: +price,
       text,
@@ -71,11 +59,17 @@ const EmployeePage = () => {
             lastName={employeeInfo?.lastName}
           />
 
-          <div className={styles.list}>
-            {rewardingList.map((el) => (
-              <RewardCard key={el._id} {...el} />
-            ))}
-          </div>
+          {rewardingList.length ? (
+            <div className={styles.list}>
+              {rewardingList.map((el) => (
+                <RewardCard key={el._id} {...el} />
+              ))}
+            </div>
+          ) : (
+            <div className={styles.rewardingNotExist}>
+              <p>Rewarding not exist</p>
+            </div>
+          )}
 
           <div className={styles.button} onClick={() => setRewardsModal(true)}>
             <img src={plusSvg} alt=" " />

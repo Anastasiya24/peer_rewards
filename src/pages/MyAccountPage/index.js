@@ -1,38 +1,26 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import AccountLayout from 'layouts/AccountLayout';
 import Tabs from 'components/shared/Tabs';
 import ProfileCard from 'components/shared/ProfileCard';
 import RewardCard from 'components/shared/RewardCard';
 import styles from './style.module.css';
-import { mockRewardingList } from 'mock/rewarding';
+import { mockMyAccountRewardingList } from 'mock/rewarding';
 import { mockMyAccount } from 'mock/myAccount';
 
-// TODO
-const mockCreatedByMyRewardingList = [
-  {
-    _id: 1,
-    user: {
-      _id: '2',
-      firstName: 'Kira',
-      lastName: 'Donovan',
-    },
-    price: 130,
-    date: '30.09.2021 15:34',
-    text: `1 - Lorem ipsum dolor sit amet consectetur adipisicing elit`,
-  },
-];
-
-const RewardsList = ({ list }) => {
+const RewardsList = ({ list, isOppositeUserSender = false }) => {
   return (
     <div className={styles.list}>
       {list.map((el) => (
-        <RewardCard key={el._id} {...el} />
+        <RewardCard key={el._id} isOppositeUserSender={isOppositeUserSender} {...el} />
       ))}
     </div>
   );
 };
 
 const MyAccountPage = () => {
+  const mockCreatedByMyRewardingList = useSelector(({ rewarding }) => rewarding.list);
+
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [myRewards, setMyRewards] = useState(0);
 
@@ -42,15 +30,15 @@ const MyAccountPage = () => {
   ];
 
   useEffect(() => {
-    const rewardingPrice = mockRewardingList.reduce((tmp, r) => {
+    const rewardingPrice = mockMyAccountRewardingList.reduce((tmp, r) => {
       return tmp + r.price;
     }, 0);
     setMyRewards(rewardingPrice);
   }, []);
 
   const components = [
-    <RewardsList list={mockRewardingList} />,
-    <RewardsList list={mockCreatedByMyRewardingList} />,
+    <RewardsList list={mockMyAccountRewardingList} />,
+    <RewardsList list={mockCreatedByMyRewardingList} isOppositeUserSender />,
   ];
 
   return (

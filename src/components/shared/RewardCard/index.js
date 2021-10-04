@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './style.module.css';
 
-const RewardCard = ({ fromUser, date, price, text }) => {
+const RewardCard = ({ fromUser, toUser, date, price, text, isOppositeUserSender }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
@@ -12,7 +12,9 @@ const RewardCard = ({ fromUser, date, price, text }) => {
         </div>
         <div>
           <h3>
-            {fromUser?.firstName} {fromUser?.lastName}
+            {isOppositeUserSender
+              ? `${toUser?.firstName} ${toUser?.lastName}`
+              : `${fromUser?.firstName} ${fromUser?.lastName}`}
           </h3>
           <h3>{price && `$${price}`}</h3>
           <p>{date}</p>
@@ -25,15 +27,16 @@ const RewardCard = ({ fromUser, date, price, text }) => {
 
 RewardCard.propTypes = {
   fromUser: PropTypes.object.isRequired,
+  toUser: PropTypes.object.isRequired,
   date: PropTypes.string.isRequired,
   price: PropTypes.number,
   text: PropTypes.string.isRequired,
-  rewardedBy: PropTypes.bool,
+  isOppositeUserSender: PropTypes.bool,
 };
 
 RewardCard.defaultProps = {
   price: null,
-  rewardedBy: false,
+  isOppositeUserSender: false,
 };
 
 export default RewardCard;

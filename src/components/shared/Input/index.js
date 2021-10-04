@@ -2,28 +2,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './style.module.css';
 
-const Input = ({ value, onChange, placeholder }) => {
+const Input = ({ type, value, onChange, placeholder }) => {
   return (
-    <div className={styles.wrapper}>
-      <input
-        className={styles.effect}
-        type="text"
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-      />
-      <span className={styles.border} />
-    </div>
+    <input
+      className={styles.input}
+      type={type}
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+    />
   );
 };
 
 Input.propTypes = {
+  type: PropTypes.string,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
 };
 
 Input.defaultProps = {
+  type: 'text',
   placeholder: '',
 };
 

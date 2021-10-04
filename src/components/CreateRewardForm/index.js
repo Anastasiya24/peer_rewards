@@ -12,6 +12,7 @@ const CreateRewardForm = ({ onCreateReward }) => {
     <div className={styles.wrapper}>
       <div className={styles.input}>
         <Input
+          type="number"
           value={rewardPrice}
           onChange={(e) => setRewardPrice(e?.target?.value)}
           placeholder="Reward $"

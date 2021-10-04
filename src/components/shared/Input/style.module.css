@@ -1,45 +1,16 @@
-.wrapper {
-  position: relative;
-}
-
-input[type="text"] {
-  width: 100%;
-  box-sizing: border-box;
-  letter-spacing: 1px;
-}
-
-.effect {
+.input {
   border: 1px solid #ccc;
   padding: 7px 14px 9px;
   transition: 0.4s;
 }
 
-.effect~.border:before,
-.effect~.border:after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background-color: var(--extra-dark-color);
-  transition: 0.3s;
-}
-
-.effect~.border:after {
-  top: auto;
-  bottom: 0;
-  left: auto;
-  right: 0;
-}
-.effect:focus~.border:before,
-.effect:focus~.border:after {
+.input[type="text"] {
   width: 100%;
-  transition: 0.3s;
+  box-sizing: border-box;
+  letter-spacing: 1px;
 }
 
-.effect:focus~.border i:before,
-.effect:focus~.border i:after {
-  height: 100%;
-  transition: 0.4s;
+.input[type="number"]::-webkit-outer-spin-button,
+.input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
 }
